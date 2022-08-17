@@ -1,3 +1,7 @@
+
+
+
+
 const getAllTickers = (req,res) => {
   res.status(200).json({ mensagem: "Lista todas as Tickers"})
 }

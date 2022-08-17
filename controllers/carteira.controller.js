@@ -1,5 +1,7 @@
-const getAllCarteiras = (req,res) => {
-  res.status(200).json({ mensagem: "Lista todas as carteiras"})
+const ucListaTodasCarteiras = require('../core/carteiras/lista-carteiras.usecase')
+
+const getAllCarteiras = (req,res) => {  
+  res.status(200).json({ mensagem: ucListaTodasCarteiras()})
 }
 
 const getCarteira = (req, res) => {
