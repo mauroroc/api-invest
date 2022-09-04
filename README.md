@@ -1,3 +1,3 @@
 # api-invest
 API do Portal Invest
-Novo Teste do Git
+Preciso tratar erro quando a carteira não existe na inserção do Ticker

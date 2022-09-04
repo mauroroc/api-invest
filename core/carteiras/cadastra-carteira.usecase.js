@@ -19,8 +19,7 @@ const schema = Joi.object({
 
 module.exports = async (dados) => {  
   try{
-    const carteira = await schema.validateAsync(dados)
-    console.log(carteira)
+    const carteira = await schema.validateAsync(dados)    
     return carteiraRepository.add(carteira)    
   }catch(err){    
     return false
