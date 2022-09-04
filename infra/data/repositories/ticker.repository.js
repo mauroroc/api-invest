@@ -30,8 +30,7 @@ const data = [
 const getAll = (carteira) => {
   let resultFromDB = data
 
-  if (carteira) {
-    console.log('Carteira' + carteira)
+  if (carteira) {    
     resultFromDB = data.filter(item => item.idCarteira == carteira)
   }
 

@@ -1,4 +1,5 @@
 const tickerRepository = require("../../infra/data/repositories/ticker.repository");
+const ucListaCarteiraByID = require('../carteiras/lista-carteira-id.usecase')
 
 const Joi = require('joi')
 const schema = Joi.object({
@@ -17,10 +18,12 @@ const schema = Joi.object({
           .required(),
     valorCusto: Joi.number() 
           .positive()    
+          .min(0.1)
           .required()
   })
 
-module.exports = async (dados) => {  
+module.exports = async (dados) => {
+  if (!ucListaCarteiraByID(dados.idCarteira)) return false
   try{
     const ticker = await schema.validateAsync(dados)    
     return tickerRepository.add(ticker)    

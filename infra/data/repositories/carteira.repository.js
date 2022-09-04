@@ -47,8 +47,7 @@ const update = (id, dados) => {
       id: id,
       ...dados
     }
-    data[pos] = newDados  
-    console.log(data[pos])
+    data[pos] = newDados      
     return true
   }else{ 
     return false
@@ -56,8 +55,7 @@ const update = (id, dados) => {
 }
 
 const remove = (id) => {
-  const pos = data.indexOf(data.find(x => x.id === id))
-  console.log(pos)
+  const pos = data.indexOf(data.find(x => x.id === id))  
   if(pos!=-1) {
     data.splice(pos, 1)  
     return true
