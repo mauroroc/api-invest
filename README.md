@@ -26,6 +26,5 @@ Rotas disponibilizadas:
 Melhorias para o futuro:
 - Adicionar autenticação para uso da API
 - Gravar os dados em banco de dados ao inves da memória
-- Implementar novas camadas de padrão de projeto para uso de DTO, Mapper, etc...
 - Integrar ao FrontEnd
 - Publicar o projeto em um servidor
