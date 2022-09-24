@@ -1,6 +1,6 @@
-const ucListaTickersPorCarteira = require('../core/tickers/lista-tickers-carteira.usecase')
-const ucCadastraTicker = require('../core/tickers/cadastra-ticker-carteira.usecase')
-const ucExcluiTicker = require('../core/tickers/exclui-ticker-carteira.usecase')
+const ucListaTickersPorCarteira = require('../../core/tickers/lista-tickers-carteira.usecase')
+const ucCadastraTicker = require('../../core/tickers/cadastra-ticker-carteira.usecase')
+const ucExcluiTicker = require('../../core/tickers/exclui-ticker-carteira.usecase')
 
 const getAllTickers = (req,res) => {
   const carteira = req.params.idCarteira
