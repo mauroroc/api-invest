@@ -28,3 +28,8 @@ Melhorias para o futuro:
 - Gravar os dados em banco de dados ao inves da memória
 - Integrar ao FrontEnd
 - Publicar o projeto em um servidor
+
+Orientações para criar o banco de dados:
+npx sequelize-cli db:create
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all

@@ -1,17 +1,30 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Tickers', {
+    await queryInterface.createTable('Portfolios', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      codigo: {
-        type: Sequelize.STRING
+      idTicker: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Tickers",
+          key: "id"
+        }
       },
-      valorCotacao: {
+      idCarteira: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Carteiras",
+          key: "id"
+        }
+      },
+      valorCusto: {
         type: Sequelize.DECIMAL(10,2)
       },
       createdAt: {
@@ -25,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Tickers');
+    await queryInterface.dropTable('Portfolios');
   }
 };

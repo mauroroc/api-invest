@@ -86,7 +86,7 @@ class TickerController {
         }
     }
 
-    static async getOneByCarteira(req, res) {
+    static async getAllByCarteira(req, res) {
         const carteira = req.params.idCarteira
         res.status(200).json({ mensagem: ucListaTickersPorCarteira(carteira)})
     }

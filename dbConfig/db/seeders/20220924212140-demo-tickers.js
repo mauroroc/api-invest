@@ -9,25 +9,25 @@ module.exports = {
      await queryInterface.bulkInsert('tickers', [
       {
         codigo: "PRIO3",
-        valorCusto: 25.8,
+        valorCotacao: 25.8,
         createdAt: new Date(),
         updatedAt: new Date()  
       },
       {
         codigo: "TASA4",
-        valorCusto: 20.2,
+        valorCotacao: 20.2,
         createdAt: new Date(),
         updatedAt: new Date() 
       },
       {
         codigo: "PETR4",
-        valorCusto: 30.9,
+        valorCotacao: 30.9,
         createdAt: new Date(),
         updatedAt: new Date()   
       },
       {
         codigo: "VALE3",
-        valorCusto: 70.1,
+        valorCotacao: 70.1,
         createdAt: new Date(),
         updatedAt: new Date() 
       }
