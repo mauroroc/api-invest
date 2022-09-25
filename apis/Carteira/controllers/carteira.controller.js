@@ -1,8 +1,8 @@
-const ucListaTodasCarteiras = require('../../core/carteiras/lista-carteiras.usecase')
-const ucListaCarteiraByID = require('../../core/carteiras/lista-carteira-id.usecase')
-const ucCadastraCarteira = require('../../core/carteiras/cadastra-carteira.usecase')
-const ucAlteraCarteira = require('../../core/carteiras/altera-carteira.usecase')
-const ucExcluiCarteira = require('../../core/carteiras/exclui-carteira.usecase')
+const ucListaTodasCarteiras = require('../../../core/carteiras/lista-carteiras.usecase')
+const ucListaCarteiraByID = require('../../../core/carteiras/lista-carteira-id.usecase')
+const ucCadastraCarteira = require('../../../core/carteiras/cadastra-carteira.usecase')
+const ucAlteraCarteira = require('../../../core/carteiras/altera-carteira.usecase')
+const ucExcluiCarteira = require('../../../core/carteiras/exclui-carteira.usecase')
 
 const getAllCarteiras = (req,res) => {  
   res.status(200).json({ mensagem: ucListaTodasCarteiras()})
