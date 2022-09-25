@@ -8,8 +8,9 @@ const tickerRoutes = (app) => {
   app.post('/ticker', tickerController.addTicker);
   app.put('/ticker/:id', tickerController.editTicker)
   app.delete('/ticker/:id', tickerController.delTicker)
-  app.get('/ticker/carteira/:idCarteira',  tickerController.getAllByCarteira)  
-  
+  app.get('/ticker/carteira/:idCarteira',  tickerController.getAllByCarteira) 
+  app.get('/ticker/:idTicker/carteira/:idCarteira',  tickerController.getOneByCarteira) 
+  app.post('/ticker/:idTicker/carteira/:idCarteira', tickerController.includeTickerInCarteira)
 }  
 
 module.exports = tickerRoutes
