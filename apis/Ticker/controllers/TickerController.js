@@ -1,4 +1,5 @@
 const database = require("../../../dbConfig/db/models");
+var validator = require('validator')
 
 class TickerController {
 
@@ -29,7 +30,14 @@ class TickerController {
     }
 
     static async addTicker(req, res) {
-        const newTicker = req.body        
+        const newTicker = req.body  
+        
+        const isCode = validator.isLength(newTicker.codigo, {min:5,max:7})
+        if(!isCode) throw new CodigoInvalido()
+        
+        const isPrice = validator.isFloat(newTicker.valorCotacao, {min: 0.01, max: 9999.99})
+        if(!isPrice) throw new ValorCotacaoInvalido()
+        
         const codeExist = await database.Tickers.findOne({
             where: { codigo: newTicker.codigo }
         })        
@@ -47,7 +55,14 @@ class TickerController {
 
     static async editTicker(req, res) {
         const { id } = req.params
-        const updateTicker = req.body        
+        const updateTicker = req.body 
+        
+        const isCode = updateTicker.codigo.length() > 4 || updateTicker.codigo.length() < 7 ? true : false
+        if(!isCode) throw new CodigoInvalido()
+        
+        const isPrice = Number(updateTicker.valorCotacao) > 0.01 ? true : false
+        if(!isPrice) throw new ValorCotacaoInvalido()
+
         try {
             const result = await database.Tickers.findOne({
                 where: { id: Number(id) }

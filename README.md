@@ -79,3 +79,4 @@ Melhorias para o futuro:
 - Publicar o projeto em um servidor
 
 Tirar o teste de exemplo do TickerController.js
+Testar o validator em TickerController
