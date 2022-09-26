@@ -1,4 +1,3 @@
-//const { getAllTickers, addTicker, delTicker } = require("../controllers/ticker.controller");
 const tickerController = require("../controllers/TickerController")
 
 const tickerRoutes = (app) => {
@@ -11,6 +10,7 @@ const tickerRoutes = (app) => {
   app.get('/ticker/carteira/:idCarteira',  tickerController.getAllByCarteira) 
   app.get('/ticker/:idTicker/carteira/:idCarteira',  tickerController.getOneByCarteira) 
   app.post('/ticker/:idTicker/carteira/:idCarteira', tickerController.includeTickerInCarteira)
+  app.delete('/ticker/:idTicker/carteira/:idCarteira', tickerController.removeTickerInCarteira)
 }  
 
 module.exports = tickerRoutes

@@ -22,7 +22,7 @@ class TickerController {
             if (result) 
                 res.status(200).send(result)
             else    
-                res.status(404).send("Esse registro não existe")
+                res.status(404).send({ mensagem: "Esse registro não existe"})
         } catch (error) {
             res.status(500).send(error.message)
         }
@@ -59,7 +59,7 @@ class TickerController {
                 res.status(200).send(updateTicker)
             }
             else    
-                res.status(404).send("Esse registro não existe")
+                res.status(404).send({ mensagem: "Esse registro não existe"})
         } catch (error) {
             res.status(500).send(error.message)
         }
@@ -76,12 +76,12 @@ class TickerController {
                 await database.Tickers.destroy({
                     where: { id: Number(id) }
                 })
-                res.status(200).send("Registro deletado com sucesso!")
+                res.status(200).send({ mensagem: "Registro deletado com sucesso!"})
             } catch (error) {
                 res.status(500).send(error.message)
             }
         } else {
-            res.status(404).send("Esse registro não existe") 
+            res.status(404).send({ mensagem: "Esse registro não existe"}) 
         }
     }
 
@@ -91,7 +91,7 @@ class TickerController {
             const result = await database.Portfolios.findAll({
                 where: { idCarteira: carteira }
             })            
-            if(result.length === 0) res.status(404).send("Carteira não existe") 
+            if(result.length === 0) res.status(404).send({ mensagem: "Carteira não existe"}) 
             res.status(200).send(result)
         } catch (error) {
             res.status(500).send(error.message)
@@ -104,7 +104,7 @@ class TickerController {
             const result = await database.Portfolios.findOne({
                 where: { idCarteira: idCarteira, idTicker: idTicker }
             })            
-            if(!result) res.status(404).send("Esse Ticker não existe nessa Carteira") 
+            if(!result) res.status(404).send({ mensagem: "Esse Ticker não existe nessa Carteira"}) 
             res.status(200).send(result)
         } catch (error) {
             res.status(500).send(error.message)
@@ -119,23 +119,50 @@ class TickerController {
             where: { id: idTicker }
         })      
         
-        if (!tickerExist) res.status(404).send("Esse Ticker não existe")        
+        if (!tickerExist) res.status(404).send({ mensagem: "Esse Ticker não existe"})        
         const CarteiraExist = await database.Carteiras.findOne({
             where: { id: idCarteira }
         })        
         
-        if (!CarteiraExist) res.status(404).send("Essa Carteira não existe")          
+        if (!CarteiraExist) res.status(404).send({ mensagem: "Essa Carteira não existe"})          
         
-        if (!valorCusto) res.status(404).send("Faltou passar o valor de custo") 
+        if (!valorCusto) res.status(404).send({ mensagem: "Faltou passar o valor de custo"}) 
 
         const result = await database.Portfolios.findOne({
             where: { idCarteira: idCarteira, idTicker: idTicker }
         })            
-        if (result) res.status(401).send("Esse ticker já pertence a essa carteira")
+        if (result) res.status(401).send({ mensagem: "Esse ticker já pertence a essa carteira"})
 
         try {
             const result = await database.Portfolios.create({ idTicker, idCarteira, valorCusto })
             res.status(200).send(result)
+        } catch (error) {
+            res.status(500).send(error.message)
+        }
+    }
+
+    static async removeTickerInCarteira(req, res) {
+        const {idTicker, idCarteira} = req.params       
+
+        const tickerExist = await database.Tickers.findOne({
+            where: { id: idTicker }
+        })      
+        
+        if (!tickerExist) res.status(404).send({ mensagem: "Esse Ticker não existe"})        
+        const CarteiraExist = await database.Carteiras.findOne({
+            where: { id: idCarteira }
+        })        
+        
+        if (!CarteiraExist) res.status(404).send({ mensagem: "Essa Carteira não existe"})          
+        
+        const result = await database.Portfolios.findOne({
+            where: { idCarteira: idCarteira, idTicker: idTicker }
+        })            
+        if (!result) res.status(401).send({ mensagem: "Esse ticker não pertence a essa carteira"})
+
+        try {
+            await database.Portfolios.destroy({ where:{ id: result.id } })
+            res.status(200).send({ mensagem: "Ticker removido com sucesso da carteira"})
         } catch (error) {
             res.status(500).send(error.message)
         }
