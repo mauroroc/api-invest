@@ -35,25 +35,28 @@ Cadastra um novo ticker
 Altera um determinado ticker conforme o id informado
 
 [DELETE] /ticker/:id
-Exclui um determinado ticker conforme o id informado
+Exclui um determinado ticker conforme o id informado, fazendo SOFT DELETE
+
+[POST] /ticker/:id
+Restaura um determinado ticker conforme o id informado, desfazendo SOFT DELETE 
 
 [GET] /ticker/carteira/:idCarteira
-Lista todas as ações que fazem parte do portfolio de uma determinada carteira
+Lista todas as ações que fazem parte do portfolio de uma determinada carteira ativa
 
 [GET] /ticker/:idTicker/carteira/:idCarteira
-Lista uma determinada ação que faz parte do portfolio de uma determinada carteira
+Lista uma determinada ação que faz parte do portfolio de uma determinada carteira ativa
 
 [POST] /ticker/:idTicker/carteira/:idCarteira
-Inclui uma determinada ação em uma determinada carteira
+Inclui uma determinada ação em uma determinada carteira ativa
 
 [DELETE] /ticker/:idTicker/carteira/:idCarteira
-Remove uma determinada ação de uma determinada carteira
+Remove uma determinada ação de uma determinada carteira ativa
 
 [GET] /carteira 
-Retorna todas as carteiras cadastradas
+Retorna todas as carteiras cadastradas ativas
 
 [GET] /carteira/:id
-Retorna uma determinada carteira conforme o id informado
+Retorna uma determinada carteira ativa conforme o id informado
 
 [POST] /carteira
 Cadastra uma nova carteira
@@ -62,7 +65,10 @@ Cadastra uma nova carteira
 Altera uma determinada carteira conforme o id informado
 
 [DELETE] /carteira/:id
-Exclui uma determinada carteira conforme o id informado
+Exclui uma determinada carteira conforme o id informado, fazendo SOFT DELETE
+
+[POST] /carteira/:id
+Restaura uma determinada carteira conforme o id informado, desfazendo SOFT DELETE
 
 Regras a serem adicionadas:
 - Não permitir excluir uma carteira ou ação que possua porfolio cadastrado

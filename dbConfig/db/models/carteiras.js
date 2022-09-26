@@ -18,10 +18,24 @@ module.exports = (sequelize, DataTypes) => {
   }
   Carteiras.init({
     nome: DataTypes.STRING,
-    corretora: DataTypes.STRING
+    corretora: DataTypes.STRING,
+    ativo: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Carteiras',
+    paranoid: true,
+    defaultScope: {
+      where: {
+        ativo: true
+      }
+    },
+    scopes: {
+      inativo: {
+        where: {
+          ativo: false
+        }
+      }
+    }
   });
   return Carteiras;
 };

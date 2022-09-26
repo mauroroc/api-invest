@@ -11,6 +11,15 @@ class CarteiraController {
         }
     }
 
+    static async getAllInactive(req,res) {
+        try {
+            const result = await database.Carteiras.scope("inativo").findAll()
+            res.status(200).send(result)
+        } catch (error) {
+            res.status(500).send(error.message)
+        }
+    }
+
     static async getOne(req,res) {
         const { id } = req.params
         try {
@@ -34,7 +43,7 @@ class CarteiraController {
             where: { nome: newCarteira.nome }
         })        
         if (nameExist) {
-            res.status(200).send("Carteira já cadastrada")
+            res.status(200).send({ mensagem: "Carteira já cadastrada"})
         } else {
             try {
                 const result = await database.Carteiras.create(newCarteira)
@@ -82,6 +91,25 @@ class CarteiraController {
             }
         } else {
             res.status(404).send({ mensagem: "Esse registro não existe"}) 
+        }
+    }
+
+    static async restoreCarteira(req, res) {
+        const { id } = req.params       
+        const nameExist = await database.Carteiras.findOne({
+            where: {  id: Number(id)  }
+        })        
+        if (!nameExist) {
+            try {
+                await database.Carteiras.restore({
+                    where: { id: Number(id) }
+                })
+                res.status(200).send({ mensagem: "Registro restaurado com sucesso!"})
+            } catch (error) {
+                res.status(500).send(error.message)
+            }
+        } else {
+            res.status(404).send({ mensagem: "Esse registro não precisa ser restaurado"}) 
         }
     }
 }

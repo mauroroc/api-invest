@@ -85,6 +85,25 @@ class TickerController {
         }
     }
 
+    static async restoreTicker(req, res) {
+        const { id } = req.params       
+        const codeExist = await database.Tickers.findOne({
+            where: {  id: Number(id)  }
+        })        
+        if (!codeExist) {
+            try {
+                await database.Tickers.restore({
+                    where: { id: Number(id) }
+                })
+                res.status(200).send({ mensagem: "Registro recuperado com sucesso!"})
+            } catch (error) {
+                res.status(500).send(error.message)
+            }
+        } else {
+            res.status(404).send({ mensagem: "Esse registro não precisa ser restaurado"}) 
+        }
+    }
+
     static async getAllByCarteira(req, res) {
         const carteira = req.params.idCarteira
         try {
