@@ -81,6 +81,6 @@ Melhorias para o futuro:
 Tirar o teste de exemplo do TickerController.js
 
 Pendencias:
-- Testar o validator em TickerController
 - Implementar o Service, tirando a responsabilidade do controller
 - Carteira não-ativas estão sendo consideradas excluídas por retornar vazio na busca
+- Não entendi a implementação de exceptions.js

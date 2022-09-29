@@ -56,7 +56,7 @@ class CarteiraController {
             const result = await carteiraServices.getOneById(id)            
             if (result) {                
                 await carteiraServices.edit(updateCarteira, id)
-                res.status(200).send(updateCarteira)
+                res.status(200).send({ mensagem: "Carteira alterada" })
             }
             else    
                 res.status(404).send({ mensagem: "Essa carteira não existe"})

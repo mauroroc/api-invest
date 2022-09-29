@@ -13,6 +13,12 @@ class ModelService {
         return await database[this.modelName].scope(escopo).findAll();
     }
 
+    async getAllByCarteira(carteira) {
+        return await database[this.modelName].findAll({
+            where: { idCarteira: carteira }
+        });
+    }
+
     async getOneById(id) {
         return await database[this.modelName].findOne({
             where: {
@@ -24,6 +30,20 @@ class ModelService {
     async getOneByName(value) {
         const result = await database[this.modelName].findOne({
             where: { nome: value }
+        })
+        return result
+    }
+
+    async getOneByCode(value) {
+        const result = await database[this.modelName].findOne({
+            where: { codigo: value }
+        })
+        return result
+    }
+
+    async getOneByPortfolio(carteira, ticker) {
+        const result = await database[this.modelName].findOne({
+            where: { idCarteira: carteira, idTicker: ticker }
         })
         return result
     }
