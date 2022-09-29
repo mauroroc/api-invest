@@ -1,8 +1,8 @@
 # api-invest
 API do Portal Invest
 
-Dependencias utilizadas:
-Nodemon, Express, Cors e Joi
+[ATUALIZAR] Dependencias utilizadas:
+Nodemon, Express, Cors
 
 O sistema permite cadastrar diversas carteiras de ações, que são formadas por ações (tickers), que também podem ser cadastrados, das empresas listadas na bolsa de valores e por fim, incluir tickers previamente cadastrados no portfolio das carteiras previamente cadastradas.
 
@@ -79,4 +79,8 @@ Melhorias para o futuro:
 - Publicar o projeto em um servidor
 
 Tirar o teste de exemplo do TickerController.js
-Testar o validator em TickerController
+
+Pendencias:
+- Testar o validator em TickerController
+- Implementar o Service, tirando a responsabilidade do controller
+- Carteira não-ativas estão sendo consideradas excluídas por retornar vazio na busca

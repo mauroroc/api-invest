@@ -1,10 +1,11 @@
-const database = require("../../../dbConfig/db/models");
+const ModelService = require("../../model.service")
+const carteiraServices = new ModelService("Carteiras")
 
 class CarteiraController {
 
     static async getAll(req,res) {
         try {
-            const result = await database.Carteiras.findAll()
+            const result = await carteiraServices.getAll()
             res.status(200).send(result)
         } catch (error) {
             res.status(500).send(error.message)
@@ -13,7 +14,7 @@ class CarteiraController {
 
     static async getAllInactive(req,res) {
         try {
-            const result = await database.Carteiras.scope("inativo").findAll()
+            const result = await carteiraServices.getAll("inativo")
             res.status(200).send(result)
         } catch (error) {
             res.status(500).send(error.message)
@@ -23,11 +24,7 @@ class CarteiraController {
     static async getOne(req,res) {
         const { id } = req.params
         try {
-            const result = await database.Carteiras.findOne({
-                where: {
-                    id: Number(id)
-                }
-            })
+            const result = await carteiraServices.getOneById(id)
             if (result) 
                 res.status(200).send(result)
             else    
@@ -39,15 +36,13 @@ class CarteiraController {
 
     static async addCarteira(req, res) {
         const newCarteira = req.body        
-        const nameExist = await database.Carteiras.findOne({
-            where: { nome: newCarteira.nome }
-        })        
+        const nameExist = await carteiraServices.getOneByName(newCarteira.nome)
         if (nameExist) {
             res.status(200).send({ mensagem: "Carteira já cadastrada"})
         } else {
             try {
-                const result = await database.Carteiras.create(newCarteira)
-                res.status(200).send(result)
+                await carteiraServices.create(newCarteira)
+                res.status(200).send({ mensagem: "Carteira cadastrada" })
             } catch (error) {
                 res.status(500).send(error.message)
             }
@@ -58,17 +53,13 @@ class CarteiraController {
         const { id } = req.params
         const updateCarteira = req.body        
         try {
-            const result = await database.Carteiras.findOne({
-                where: { id: Number(id) }
-            })            
-            if (result) {
-                console.log(updateCarteira)
-                await database.Carteiras.update(updateCarteira, 
-                    { where: { id: Number(id) } })
+            const result = await carteiraServices.getOneById(id)            
+            if (result) {                
+                await carteiraServices.edit(updateCarteira, id)
                 res.status(200).send(updateCarteira)
             }
             else    
-                res.status(404).send({ mensagem: "Esse registro não existe"})
+                res.status(404).send({ mensagem: "Essa carteira não existe"})
         } catch (error) {
             res.status(500).send(error.message)
         }
@@ -77,39 +68,31 @@ class CarteiraController {
 
     static async delCarteira(req, res) {
         const { id } = req.params       
-        const nameExist = await database.Carteiras.findOne({
-            where: {  id: Number(id)  }
-        })        
-        if (nameExist) {
+        const result = await carteiraServices.getOneById(id)         
+        if (result) {
             try {
-                await database.Carteiras.destroy({
-                    where: { id: Number(id) }
-                })
-                res.status(200).send({ mensagem: "Registro deletado com sucesso!"})
+                await carteiraServices.destroy(id)
+                res.status(200).send({ mensagem: "Carteira excluída com sucesso!"})
             } catch (error) {
                 res.status(500).send(error.message)
             }
         } else {
-            res.status(404).send({ mensagem: "Esse registro não existe"}) 
+            res.status(404).send({ mensagem: "Essa carteira não existe"}) 
         }
     }
 
     static async restoreCarteira(req, res) {
         const { id } = req.params       
-        const nameExist = await database.Carteiras.findOne({
-            where: {  id: Number(id)  }
-        })        
-        if (!nameExist) {
+        const result = await carteiraServices.getOneById(id)        
+        if (!result) {
             try {
-                await database.Carteiras.restore({
-                    where: { id: Number(id) }
-                })
-                res.status(200).send({ mensagem: "Registro restaurado com sucesso!"})
+                await carteiraServices.restore(id) 
+                res.status(200).send({ mensagem: "Carteira restaurada com sucesso!"})
             } catch (error) {
                 res.status(500).send(error.message)
             }
         } else {
-            res.status(404).send({ mensagem: "Esse registro não precisa ser restaurado"}) 
+            res.status(404).send({ mensagem: "Essa Carteira não precisa ser restaurada"}) 
         }
     }
 }
