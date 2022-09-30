@@ -70,17 +70,13 @@ Exclui uma determinada carteira conforme o id informado, fazendo SOFT DELETE
 [POST] /carteira/:id
 Restaura uma determinada carteira conforme o id informado, desfazendo SOFT DELETE
 
-Regras a serem adicionadas:
-- Não permitir excluir uma carteira ou ação que possua porfolio cadastrado
-
 Melhorias para o futuro:
 - Adicionar autenticação para uso da API
 - Integrar ao FrontEnd
 - Publicar o projeto em um servidor
 
-Tirar o teste de exemplo do TickerController.js
-
 Pendencias:
-- Implementar o Service, tirando a responsabilidade do controller
+- Não permitir excluir uma carteira ou ação que possua porfolio cadastrado
 - Carteira não-ativas estão sendo consideradas excluídas por retornar vazio na busca
 - Não entendi a implementação de exceptions.js
+- Tirar o teste de exemplo do TickerController.js

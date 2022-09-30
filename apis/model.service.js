@@ -41,6 +41,14 @@ class ModelService {
         return result
     }
 
+    async getOneByCpf(value) {
+        const result = await database[this.modelName].findOne({
+            where: { cpf: value }
+        })
+        return result
+    }
+    
+
     async getOneByPortfolio(carteira, ticker) {
         const result = await database[this.modelName].findOne({
             where: { idCarteira: carteira, idTicker: ticker }
