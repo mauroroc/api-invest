@@ -9,12 +9,11 @@ const { authMid } = require("./login.service")
 
 const keyJWT = "jaoifhfodfuisdhfouisdhfiosd"
 
-module.exports = (app) => {
-    app.use(authMid)    
+module.exports = (app) => {      
     app.post("/login", async (req, res) => {
-        const { cpf, senha } = req.body
+        const { cpf, senha } = req.body        
         try {
-            const user = await userServices.getOneByCpf(cpf)
+            const user = await userServices.getOneByCpf(cpf)            
             if (user) {
                 if (user.senha === senha) {
                     const payload = {
@@ -31,7 +30,7 @@ module.exports = (app) => {
             return res.status(500).send(error.message)
         }
     })    
-
+    app.use(authMid)  
     carteiraRoutes(app)
     tickerRoutes(app)
     userRoutes(app)

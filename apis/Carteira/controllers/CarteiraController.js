@@ -1,5 +1,6 @@
 const ModelService = require("../../model.service")
 const carteiraServices = new ModelService("Carteiras")
+const portfolioServices = new ModelService("Portfolios")
 
 class CarteiraController {
 
@@ -68,14 +69,19 @@ class CarteiraController {
 
     static async delCarteira(req, res) {
         const { id } = req.params       
-        const result = await carteiraServices.getOneById(id)         
+        const result = await carteiraServices.getOneById(id)            
         if (result) {
-            try {
-                await carteiraServices.destroy(id)
-                res.status(200).send({ mensagem: "Carteira excluída com sucesso!"})
-            } catch (error) {
-                res.status(500).send(error.message)
-            }
+            const existTicker = await portfolioServices.getAllByCarteira(id)            
+            if (existTicker.length === 0) {
+                try {
+                    await carteiraServices.destroy(id)
+                    res.status(200).send({ mensagem: "Carteira excluída com sucesso!"})
+                } catch (error) {
+                    res.status(500).send(error.message)
+                }
+            } else {
+                res.status(401).send({ mensagem: "Essa carteira possui tickers e não pode ser excluída"})
+            }  
         } else {
             res.status(404).send({ mensagem: "Essa carteira não existe"}) 
         }

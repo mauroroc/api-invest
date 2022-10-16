@@ -3,7 +3,7 @@
     "username": "apiinvest",
     "password": "api@invest2022",
     "database": "apiinvest",
-    "host": "172.23.16.1",
+    "host": "172.22.128.1", 
     "dialect": "mysql"
   },
   "test": {

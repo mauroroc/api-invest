@@ -164,10 +164,7 @@ class TickerController {
             res.status(500).send(error.message)
         }
     }
-
-    static testExemplo() {
-        return("Teste")
-    }
+    
 } 
 
 module.exports = TickerController
