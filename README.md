@@ -1,4 +1,5 @@
 # api-invest
+
 API do Portal Invest
 
 Dependencias utilizadas:
@@ -7,13 +8,16 @@ bcrypt, chai, cors, express, jsonwebtoken, mocha, mysql2, sequelize, sequelize-c
 O sistema permite cadastrar diversas carteiras de ações, que são formadas por ações (tickers), que também podem ser cadastrados, das empresas listadas na bolsa de valores e por fim, incluir tickers previamente cadastrados no portfolio das carteiras previamente cadastradas.
 
 # Criação do banco de dados MySQL
+
 Para criar o banco de dados, as tabelas e os dados de teste, rodar os comandos abaixo respeitando essa sequência:
 npx sequelize-cli db:create
 npx sequelize-cli db:migrate
 npx sequelize-cli db:seed:all
 
-#IP do MySQL
+# IP do MySQL
 Alterar o IP do MySQL, no meu caso, coloquei o IP que o WSL enxerga o Windows. Mudar em dbConfig/config/config.json
+
+# Escopo do Projeto
 
 Diante desta necessidade, ficou entendido pelo time de produto que para alcançar tal objetivo será necessário disponibilizar novas funcionalidades em seu portal:
 - O cadastro, consulta, alteração e exclusão de uma ação (ticker);
@@ -24,7 +28,8 @@ Diante desta necessidade, ficou entendido pelo time de produto que para alcança
 - A possibilidade de listar as carteiras disponíveis para cadastrar uma ação;
 - O cadastro, consulta, alteração e exclusão de uma carteira;
 
-Rotas disponibilizadas:
+# Rotas disponibilizadas:
+
 [GET] /ticker 
 Retorna todos os tickers cadastrados
 
